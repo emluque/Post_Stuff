@@ -1,0 +1,20 @@
+
+@import url(http://fonts.googleapis.com/css?family=Quicksand);
+@import url(http://fonts.googleapis.com/css?family=Mate+SC);
+
+
+#nav { width:20%; left : 0px ; position : fixed; top : 0px ; margin-top:30px;}
+#content {  width:78%; margin-left: 20%; }
+/* #content { font-family: 'Quicksand', arial, sans-serif; } */
+body { font-family: 'Quicksand', arial, sans-serif; }
+h1 { font-family: 'Mate SC', arial, sans-serif; font-size: 38pt; font-weight:normal; letter-spacing: 2pt;}
+p.texto { text-indent: 2em; }
+p.texto:first-letter { font-size: 1.7em; line-height: 1em; }
+p strong { margin-left: 2em; }
+h2 { padding-top: 1.6em; font-size: 22pt; } 
+#nav { font-family: 'Mate SC', arial, sans-serif; font-size: 14pt; height: 90%; overflow: auto; }
+#nav li { margin-top: 16px; list-style-type: none; margin-left: -10px;}
+#nav p.link_grafico { font-size: 10pt; text-align:right; margin-right:26%; margin-top:-18px; margin-bottom: -10px; }
+
+a { color: #225577; }
+a:visited { color: #668888; }
