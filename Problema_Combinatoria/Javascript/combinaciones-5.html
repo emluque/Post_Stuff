@@ -1,0 +1,61 @@
+<html>
+<head>
+<script type="text/javascript">
+
+//Generar combinaciones
+combinaciones = [];
+
+for(x=0; x<5; x++) {
+	for(y=0; y<5; y++) {
+		for(z=0; z<5; z++) {
+			for(l=0; l<5; l++) {
+				for(t=0; t<5; t++) {
+					combinacion = [x,y,z,l,t];
+					combinaciones.push( combinacion );
+				}
+			}
+		}
+	}
+}
+
+function alLoader() {
+	uno = 0;
+	dos = 0;
+	tres = 0;
+	cuatro = 0;
+	cinco = 0;
+
+	for(m=0; m<5*5*5*5*5; m++) {
+//		document.getElementById("pepe").innerHTML += ("<p>" + combinaciones[m] + " :: " + countVariantElements( combinaciones[m] ) + "</p>");
+		if( countVariantElements( combinaciones[m] ) == 1 ) uno++;
+		if( countVariantElements( combinaciones[m] ) == 2 ) dos++;
+		if( countVariantElements( combinaciones[m] ) == 3 ) tres++;
+		if( countVariantElements( combinaciones[m] ) == 4 ) cuatro++;
+		if( countVariantElements( combinaciones[m] ) == 5 ) cinco++;
+	}
+		document.getElementById("pepe").innerHTML += ("<p>1: " + uno + "</p>");
+		document.getElementById("pepe").innerHTML += ("<p>2: " + dos + "</p>");
+		document.getElementById("pepe").innerHTML += ("<p>3: " + tres + "</p>");
+		document.getElementById("pepe").innerHTML += ("<p>4: " + cuatro + "</p>");
+		document.getElementById("pepe").innerHTML += ("<p>5: " + cinco + "</p>");
+	
+	
+}
+
+function countVariantElements(combinacion) {
+	previo = [0,0,0,0,0]
+	for(x=0; x<5; x++) {
+		previo[ combinacion[x] ]++;
+	}
+	cant = 0;
+	for(x=0; x<5; x++) {
+		if(previo[x] != 0) cant++;
+	}
+	return cant;
+}
+</script>
+</head>
+<body onLoad="javascript:alLoader();">
+<div id="pepe">
+</div>
+</body>

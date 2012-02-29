@@ -1,0 +1,95 @@
+<html>
+<head>
+<script type="text/javascript">
+
+
+//Depth de la llamada
+//Size del alfabeto
+function generarCombinaciones(depth, size) {
+	if(depth==1) {
+		var arr = [];
+		for(var x=0; x<size; x++) {
+			arr[x] = x;
+		} 
+		return arr;
+	} else {
+		var arr = new Array();
+		var pre = generarCombinaciones(depth-1, size);
+		for(var x=0; x<size; x++) {
+			for(var y=0; y<pre.length; y++) {
+				var arr2 = new Array();
+				arr2.push(x);
+				arr2 = arr2.concat(pre[y]);
+				arr.push(arr2);
+			}
+		}
+		return arr;
+	}
+}
+
+
+//Combinacion
+//Cantidad de elementos posibles
+function contarElementosDistintos(combinacion, m) {
+	var previo = new Array();
+	for(var x=0; x<(m+1); x++) {
+		previo[x] = 0;
+	}
+	
+	for(var x=0; x<combinacion.length; x++) {
+		previo[ combinacion[x] ]++;
+	}
+	cant = 0;
+	for(var x=0; x<(m+1); x++) {
+		if(previo[x] != 0) cant++;
+	}
+	return cant;
+}
+
+//Combinacion
+//Tamañó de alfabeto
+function calcularResultadoParaCombinaciones(combinaciones, m) {
+	var results = new Array();
+
+	for(var x=0; x<(m+1); x++) {
+		results[x] = 0;
+	}
+	for(var x=0; x<combinaciones.length; x++) {
+		results[ (contarElementosDistintos( combinaciones[ x ] , m)) ]++;
+	}
+	return results;
+} 
+
+function mostrarCombinaciones(combinaciones, y) {
+	for(var x=0; x<combinaciones.length; x++) {
+		document.getElementById("pepe").innerHTML += ("<p>" + combinaciones[x] + " :: " + contarElementosDistintos(combinaciones[x], y) + "</p>");
+	}
+}
+
+function alLoader() {
+
+	var tabla = new Array();
+	for(var y=1; y<5; y++) {
+		for(var x=1; x<5; x++) {
+			var combinaciones = generarCombinaciones(x,y);
+			document.getElementById("pepe").innerHTML += ("<h1>Cadena: " + x + "  ::  Alfabeto: "  + y + "</h1>");
+			document.getElementById("pepe").innerHTML += ("<p><strong>Total de Combinaciones: " + (Math.pow(y,x)) + "</strong></p>");
+			mostrarCombinaciones(combinaciones, y);
+
+			var results = calcularResultadoParaCombinaciones(combinaciones, y);
+
+			for(var z = 1; z<results.length; z++) {
+				document.getElementById("pepe").innerHTML += ("<p><strong>Cadenas con " + z + " elemento\\s</strong>: " + results[z] + "</p>");
+			}	
+
+		}
+	}
+
+}
+
+</script>
+</head>
+<body onLoad="javascript:alLoader();">
+<div id="pepe">
+</div>
+</body>
