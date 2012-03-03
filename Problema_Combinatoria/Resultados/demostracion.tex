@@ -1,0 +1,70 @@
+\documentclass{amsart}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage[T1]{fontenc}
+
+\author{ Emiliano Martinez Luque 
+}
+
+\title{ Cuantas cadenas de tamaño $n$ pueden ser creadas con exactamente $m$ símbolos de un alfabeto de $k$ símbolos?  }
+\begin{document}
+
+\maketitle
+
+Lo que estamos buscando es, dado $A$ un alfabeto de tamaño $k$, la cantidad de cadenas de tamaño $n$ que contienen exactamente $m$ símbolos de $A$.
+
+Para resolver este problema primero vamos a resolver lo siguiente:
+
+\section{ Cuantas cadenas de tamaño $n$ pueden ser creadas con todos los símbolos de un alfabeto de $k$ símbolos? }
+
+Se propone la siguiente relación de recurrencia de $2$ variables, donde:
+
+$n$: representa el tamaño de la cadena
+$k$: representa la cantidad de símbolos en el alfabeto
+
+\begin{equation}
+f(0, k) = 0
+\end{equation}
+Para todo $k$, ya que la cantidad de cadenas de tamaño 0 que pueden formarse con todos los símbolos de $A$ es 0.
+
+\begin{equation}
+f(1, 1) = 1  
+\end{equation}
+Ya que existe solo una cadena de tamaño 1 con 1 símbolo.
+
+\begin{equation}
+f(n, k) = k( f(n-1,k) + f(n-1, k-1) )  
+\end{equation}
+
+\section{ Demostración }
+
+Llamemos $A_{n,k}$ al conjunto de todas las cadenas de tamaño $n$ que contienen a todos los símbolos de $A$ e intentemos construir todas las cadenas que pertenecen a este conjunto.\\
+
+Para cada símbolo $a$ de $A_{n,k}$ vamos a realizar el siguiente procedimiento:\\
+
+1. Llamemos $A_{n-1, k}$ al conjunto de todas las cadenas de tamaño $(n-1)$ con exactamente $k$ símbolos de $A$ (o sea con todos los símbolos de $A$).\\
+Para cada cadena $\alpha$ de $A_{n-1, k}$ construimos una nueva cadena concatenandole $a$, nos queda así una nueva cadena: $a\alpha$. Como $\alpha$ tiene tamaño $(n-1)$, la nueva cadena $a\alpha$ tiene tamaño $n$.\\
+Ademas por definición de $A_{n-1, k}$, $\alpha$ contiene a todos los símbolos de $A$, y en particular contiene a $a$. Entonces de esta manera hemos formado todas las cadenas de $A_{n,k}$ que comienzan por $a$ y tienen al menos 2 ocurrencias de $a$.\\
+Nos queda todavía construir todas las cadenas de $A_{n,k}$ que comienzan por $a$ pero tienen solo una ocurrencia de $a$.\\ 
+
+2. Llamemos $A_{n-1, k-1}$ al conjunto de todas las cadenas de tamaño $(n-1)$ que están formadas por todos los símbolos de $A$ menos $a$.\\ 
+Para cada cadena $\beta$ de $A_{n-1, k-1}$ construimos una nueva cadena $a\beta$. Se cumple entonces que $a\beta$ tiene tamaño $n$ y ademas dado que $\beta$ contiene a todos los símbolos de $A$ menos a $a$ y le hemos concatenado $a$, $a\beta$ contiene los $k$ símbolos de $A$.\\
+
+A partir de estos dos pasos hemos construido todas las cadenas de $A_{n,k}$ que comienzan con $a$. Como por definición de $A_{n,k}$, cualquier cadena de $A_{n,k}$ necesariamente tiene que comenzar con un símbolo de $A$ y $a$ es un elemento arbitrario podemos aplicar el procedimiento para construir todas las cadenas del conjunto $A_{n,k}$.\\ 
+
+Como por hipótesis, $|A_{n-1, k-1}| = f(n-1,k-1)$, $|A_{n-1, k}| = f(n-1,k)$ y como existen exactamente $k$ símbolos de $A$ se cumple que $f(n, k) = k( f(n-1,k) + f(n-1, k-1) )$.\\
+
+
+\section{ Cuantas cadenas de tamaño $n$ pueden ser creadas con exactamente $m$ símbolos de un alfabeto de $k$ símbolos? }
+
+Asumiendo que la función anterior es correcta, podemos proponer la siguiente función: 
+
+\[ 
+g(n,m,k) = \binom {m}{k} \times f(n,m)
+\]
+
+
+Llamemos $A_{m}$ al conjunto de todos los subconjuntos de $A$ con exactamente $m$ elementos. Es conocido que la cantidad de subconjuntos de tamaño $m$ de un conjunto se puede calcular como: $|A_{m}| = \binom {m}{k}$ \footnote{ http://en.wikipedia.org/wiki/Combination } . Sabemos ademas por el resultado anterior que la cantidad de cadenas de tamaño $n$ que pueden hacerse de un conjunto de tamaño $m$ es igual a $f(n,m)$, a partir de lo cual derivamos la formula.\\
+
+
+\end{document}
